@@ -35,3 +35,12 @@ jobs:
         run: |
           # Since there are no tests yet, we'll just run a simple check to ensure the code is valid
           python -m compileall src backend
+
+      - name: Lint shell scripts
+        run: |
+          if ls scripts/*.sh 1> /dev/null 2>&1; then
+            sudo apt-get install -y shellcheck
+            shellcheck scripts/*.sh
+          else
+            echo "No shell scripts found to lint."
+          fi
