@@ -4,15 +4,13 @@ python-dotenv
 pandas
 sqlalchemy
 
-# Databricks Connect
-databricks-connect
-
 # ML / AI
 mlflow[databricks]>=3.1
 scikit-learn
 transformers
 torch
 joblib
+Cython
 
 # Utilities
 from-root
@@ -26,7 +24,6 @@ langchain-core
 langchain-groq
 matplotlib
 seaborn
-scikit-learn
 requests
 fastapi
 uvicorn
