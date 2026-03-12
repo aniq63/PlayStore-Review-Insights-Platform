@@ -21,15 +21,23 @@ from src.config import CATALOG, ML_SCHEMA, REGISTERED_MODEL
 from src.utils.scraper import SerpApiScraper
 
 
+# Initialize global dependencies for the application
+sentiment_client = None
+clusterer = None
+insight_engine = None
+serpapi_scraper = None
+
 try:
     logging.info("Initializing Backend API dependencies...")
     sentiment_client = PlayStoreSentimentAPI()
     clusterer = ReviewClusterer()
     insight_engine = InsightGenerator(output_dir="backend/static/insights")
     serpapi_scraper = SerpApiScraper()
+    logging.info("Backend API dependencies initialized successfully.")
 except Exception as e:
-    logging.critical(f"Failed to initialize API dependencies: {e}")
-    # Don't crash immediately, let the health check work, but log aggressively.
+    logging.critical(f"CRITICAL: Failed to initialize API dependencies: {e}")
+    # We don't crash the server here so the health check endpoint still works,
+    # and we can report the error through the /analyze endpoint.
 
 CACHE_TTL = 3600   # 1 hour cache
 
@@ -105,6 +113,15 @@ def analyze(request: ReviewRequest):
         app_id = request.app_id
         reviews = request.reviews
         logging.info(f"Received analysis request for app: {app_id} with {len(reviews)} reviews")
+
+        # --------------------------------------------------
+        # STEP 0: CHECK INITIALIZATION
+        # --------------------------------------------------
+        if sentiment_client is None:
+            raise HTTPException(
+                status_code=500, 
+                detail="Backend failed to initialize. Please check if DATABRICKS_TOKEN and other secrets are set in your .env file."
+            )
 
         # --------------------------------------------------
         # STEP 1: CHECK CACHE
