@@ -71,7 +71,7 @@ The CI pipeline is defined in `.github/workflows/ci.yml`. It runs automatically 
 ### Docker Image
 
 You can find the official Docker image on Docker Hub:
-[**aniqramzan/databricks-reviews**](https://hub.docker.com/r/aniqramzan/databricks-reviews)
+[**aniqramzan/playstore-review-insights-platforms**](https://hub.docker.com/repository/docker/aniqramzan/playstore-review-insights-platform)
 
 ---
 
