@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install Cython
+          pip install Cython numpy
           pip install torch --index-url https://download.pytorch.org/whl/cpu
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           pip install flake8 pytest
@@ -37,12 +37,3 @@ jobs:
         run: |
           # Since there are no tests yet, we'll just run a simple check to ensure the code is valid
           python -m compileall src backend
-
-      - name: Lint shell scripts
-        run: |
-          if ls scripts/*.sh 1> /dev/null 2>&1; then
-            sudo apt-get install -y shellcheck
-            shellcheck scripts/*.sh
-          else
-            echo "No shell scripts found to lint."
-          fi

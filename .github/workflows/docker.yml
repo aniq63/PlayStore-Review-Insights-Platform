@@ -27,7 +27,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/databricks-reviews
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/PlayStore-Review-Insights-Platform
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5

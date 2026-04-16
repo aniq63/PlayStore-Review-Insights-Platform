@@ -218,3 +218,4 @@ logs
 notebooks/raw_data/*.csv
 datalake/
 playstore-key.pem
+demo.py

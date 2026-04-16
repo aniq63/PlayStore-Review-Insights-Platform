@@ -61,7 +61,7 @@ analyzeBtn.addEventListener("click", async () => {
             updateStatus(statusMsg, 50)
 
             try {
-                const response = await fetch("http://3.1.220.237/analyze", {
+                const response = await fetch("http://localhost:8000/analyze", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
